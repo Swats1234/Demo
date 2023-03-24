@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="post" format="json">
+      <types:shape format="weave" example="examples/sample.json"><![CDATA[%dw 2.0
+
+type post = Array<{| username: String |}> {"example": "[{\\\"username\\\":\\\"john\\\"}]"}
+
+]]></types:shape>
+    </types:type>
+    <types:type name="json" format="json">
+      <types:shape format="weave" example="examples/collegesamplejson.json"><![CDATA[%dw 2.0
+
+type json = {|
+  educ: String, 
+  Id: String, 
+  Colleges: {|
+    Collegename: String, 
+    enrollmentStatus: String, 
+    Branchdetails: {|
+      Branch: String, 
+      Code: String
+    |}
+  |}
+|} {"example": "{\\\"educ\\\":\\\"Btech\\\",\\\"Id\\\":\\\"005\\\",\\\"Colleges\\\":{\\\"Collegename\\\":\\\"Vignan\\\",\\\"enrollmentStatus\\\":\\\"true\\\",\\\"Branchdetails\\\":{\\\"Branch\\\":\\\"IT\\\",\\\"Code\\\":\\\"005\\\"}}}"}
+
+]]></types:shape>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#e9c83ca6-79a0-44c8-9f4b-308af92dd531">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="post"/>
+        </types:message>
+      </types:input-event>
+      <types:output-event>
+        <types:message>
+          <types:payload type="post"/>
+        </types:message>
+      </types:output-event>
+    </types:processor-declaration>
+  </types:enrichment>
+  <types:enrichment select="#07a156d9-0bac-4f2a-9845-22a50d11d097">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="json"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>

@@ -1,0 +1,16 @@
+
+{
+    "educ": "Btech",
+    "Id": "005",
+    "Colleges": 
+        {
+            "Collegename":"Vignan",
+            "enrollmentStatus":"true",
+             "Branchdetails": {
+                "Branch": "IT",
+                "Code": "005"
+                
+            }
+}
+}
+           
